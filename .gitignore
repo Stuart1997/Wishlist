@@ -3,6 +3,5 @@ target
 .*
 !.gitignore
 /RUNNING_PID
-project
-!build.properties
+project/project
 
