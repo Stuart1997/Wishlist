@@ -4,7 +4,11 @@ import play.api.mvc._
 
 class GamesController extends Controller {
 
-  def index = Action { request =>
-    Ok(views.html.index("Hello"))
+  def games = Action { request =>
+    Ok(views.html.games())
+  }
+
+  def wishlist = Action { request =>
+    Ok(views.html.wishlist())
   }
 }

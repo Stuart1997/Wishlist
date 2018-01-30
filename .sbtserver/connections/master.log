@@ -1,0 +1,25 @@
+New log file opened at Tue Jan 30 10:15:26 GMT 2018 by 8030@stuart-purcell
+Taking next connection to: 41984
+New client attempting to connect on port: 42366-41984
+  Address = /127.0.1.1:41984
+This client on port 42366 has uuid 575ee57a-6923-44f0-8746-b7e3b507cb49 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-575ee57a-6923-44f0-8746-b7e3b507cb49
+Taking next connection to: 41984
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41984
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41984
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41984
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41984
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41984
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 41984
