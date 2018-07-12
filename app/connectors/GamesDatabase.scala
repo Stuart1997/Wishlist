@@ -1,44 +1,31 @@
 package connectors
 
+import com.google.inject.ImplementedBy
 import models.{Games, PriceRange}
 import reactivemongo.api._
 import reactivemongo.api.collections.GenericCollection
-import reactivemongo.api.collections.bson.BSONCollection
 import reactivemongo.bson.{BSONDocument, document}
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 import scala.util.Try
 
-object GamesDatabase {
-  val mongoUri = "mongodb://localhost:27017/Wishlist"
-  val driver: MongoDriver = MongoDriver()
-  val parsedUri: Try[MongoConnection.ParsedURI] = MongoConnection.parseURI(mongoUri)
-  val connection: Try[MongoConnection] = parsedUri.map(driver.connection)
-  val futureConnection: Future[MongoConnection] = Future.fromTry(connection)
-  val gamesDatabase: Future[DefaultDB] = futureConnection.flatMap(_.database("Wishlist"))
-  val gamesCollection:Future[GenericCollection[BSONSerializationPack.type]] = gamesDatabase.map(_.collection("Games"))
+@ImplementedBy(classOf[GamesDatabaseConnectorImpl])
+trait GamesDatabaseConnector {
+  protected val mongoUri: String
+  protected val databaseName: String
+  val collectionName: String
 
-  private def find(query: BSONDocument) = {
-    gamesCollection.flatMap(_.find(query).cursor[Games]().collect[List]())
-  }
+  private val driver: MongoDriver = MongoDriver()
+  private def parsedUri: Try[MongoConnection.ParsedURI] = MongoConnection.parseURI(mongoUri)
+  private def connection: Try[MongoConnection] = parsedUri.map(driver.connection)
+  private def futureConnection: Future[MongoConnection] = Future.fromTry(connection)
+  protected def database: Future[DefaultDB] = futureConnection.flatMap(_.database(databaseName))
+  def collection: Future[GenericCollection[BSONSerializationPack.type]] = database.map(_.collection(collectionName))
+}
 
-  def findByName(name: String): Future[List[Games]] = {
-    find(document("name" → name))
-  }
-
-  def retrieveAllGames = {
-    find(document)
-  }
-
-  def retrieveAllGamesOverPrice(price: Double) = {
-    val query = document("price" -> BSONDocument("$gt" -> price))
-    find(query)
-  }
-
-  def retrieveAllBetweenPrices(priceRange: PriceRange) = {
-    val query = document("price" -> BSONDocument("$gt" -> priceRange.lowestPrice, "$lt" -> priceRange.highestPrice))
-    find(query)
-  }
-
+class GamesDatabaseConnectorImpl extends GamesDatabaseConnector {
+  val mongoUri = "mongodb://localhost:27017/HMRC"
+  val databaseName = "Wishlist"
+  val collectionName: String = "Games"
 }
