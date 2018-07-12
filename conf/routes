@@ -1,6 +1,4 @@
-GET     /                           controllers.GamesController.games
-
-GET     /games                      controllers.GamesController.games
+GET     /games                      controllers.GamesController.games(priceRange: Option[models.PriceRange] ?= None)
 
 GET     /wishlist                   controllers.GamesController.wishlist
 

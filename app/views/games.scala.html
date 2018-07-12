@@ -3,7 +3,19 @@
 @(games: List[Games])()
 
 @main("Game Directory") {
-  <a href=@routes.GamesController.wishlist.url>Wishlist</a>
-  <h1 class="page-heading">Directory of games</h1>
-  <p>@games</p>
+    <a href=@routes.GamesController.wishlist.url>Wishlist</a>
+    <h1 class="page-heading">Directory of games</h1>
+
+    <table>
+        <tr>
+            <th>Game</th>
+            <th>Price</th>
+        </tr>
+    @for(game <- games){
+        <tr>
+            <td>@game.name</td>
+            <td>£@game.price</td>
+        </tr>
+    }
+    </table>
 }
