@@ -1,4 +1,9 @@
+@import models.Games
+
+@(games: List[Games])()
+
 @main("Game Directory") {
-    <a href=@routes.GamesController.wishlist.url>Wishlist</a>
-    <h1 class="page-heading">Directory of games</h1>
+  <a href=@routes.GamesController.wishlist.url>Wishlist</a>
+  <h1 class="page-heading">Directory of games</h1>
+  <p>@games</p>
 }
